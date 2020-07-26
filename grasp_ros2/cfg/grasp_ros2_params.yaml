@@ -2,7 +2,7 @@ GraspDetectorGPD:
   ros__parameters:
     cloud_topic: /camera/pointcloud
     rviz: true
-    device: 1 # 0:CPU, 1:GPU, 2:VPU
+    device: 0 # 0:CPU, 1:GPU, 2:VPU
     auto_mode: true
     plane_remove: true
     # grasp workspace in camera frames
@@ -12,10 +12,18 @@ GraspDetectorGPD:
     # hand_outer_diameter: the maximum robot hand aperture 
     # hand_depth: the hand depth (the finger length)
     # hand_height: the finger breadth
-    finger_width: 0.005
-    hand_outer_diameter: 0.100
-    hand_depth: 0.038
-    hand_height: 0.020
+
+    ### default
+    # finger_width: 0.005
+    # hand_outer_diameter: 0.100
+    # hand_depth: 0.038
+    # hand_height: 0.020
+
+    ##customize
+    finger_width: 0.01
+    hand_outer_diameter: 0.115
+    hand_depth: 0.085
+    hand_height: 0.02
 GraspPlanner:
   ros__parameters:
     grasp_score_threshold: 20
