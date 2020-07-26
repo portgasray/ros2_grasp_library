@@ -58,17 +58,21 @@ bool URControl::moveToJointValues(const std::vector<double>& joint_values, doubl
 
 bool URControl::open(const double distance)
 {
-  rt_commander_->setToolVoltage(static_cast<uint8_t>(24));
+  
   if (!gripper_powered_up_)
   {
-    rt_commander_->setToolVoltage(static_cast<uint8_t>(24));
+
+    // rt_commander_->setToolVoltage(static_cast<uint8_t>(24));
     gripper_powered_up_ = true;
+
     std::cout << "Gripper powered up." << std::endl;    
   }
 
-  rt_commander_->setDigitalOut(16, true);
-  rt_commander_->setDigitalOut(17, false);
+  rt_commander_->setDigitalOut(0, false);
+  // rt_commander_->setDigitalOut(16, true);
+  // rt_commander_->setDigitalOut(17, false);
   std::this_thread::sleep_for(std::chrono::seconds(1));
+
   return true;
 }
 
@@ -76,13 +80,14 @@ bool URControl::close(const double distance)
 {
   if (!gripper_powered_up_)
   {
-    rt_commander_->setToolVoltage(static_cast<uint8_t>(24));
+    // rt_commander_->setToolVoltage(static_cast<uint8_t>(24));
     gripper_powered_up_ = true;
     std::cout << "Gripper powered up." << std::endl;
   }
 
-  rt_commander_->setDigitalOut(16, false);
-  rt_commander_->setDigitalOut(17, true);
+  rt_commander_->setDigitalOut(0, true);
+  // rt_commander_->setDigitalOut(16, false);
+  // rt_commander_->setDigitalOut(17, true);
   std::this_thread::sleep_for(std::chrono::seconds(1));
   return true;
 }
