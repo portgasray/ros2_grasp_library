@@ -7,18 +7,22 @@
 #include <robot_interface/control_ur.hpp>
 #include <tf2_ros/static_transform_broadcaster.h>
 
+
 #define robot_enable
 
 using GraspPlanning = moveit_msgs::srv::GraspPlanning;
 /* pick position in [x, y, z, R, P, Y]*/
 static std::vector<double> pick_ = {0.0, -0.54, 0.145, 3.14, 0.0, 1.956};
 /* place position in [x, y, z, R, P, Y]*/
-static std::vector<double> place_ = {-0.45, -0.30, 0.125, 3.14, 0.0, 1.956};
+static std::vector<double> place_ = {0.557, 0.213, 0.194, 0.0, 3.14, 0.0, 1.956};
+
 /* pre-pick position in joint values*/
-static std::vector<double> joint_values_pick = {1.065, -1.470, 1.477, -1.577, -1.556, 0};
+static std::vector<double> joint_values_pick = {1.65, -1.553, -1.477, -1.577, 1.556, 0};
 /* place position in joint values*/
-static std::vector<double> joint_values_place = {0.385, -1.470, 1.477, -1.577, -1.556, 0};
+static std::vector<double> joint_values_place = {0.385, -1.470, -1.477, -1.577, 1.556, 0};
 static double vel_ = 0.4, acc_ = 0.4, vscale_ = 0.5, appr_ = 0.1;
+// Debug lower vel acc
+// static double vel_ = 0.3, acc_ = 0.2, vscale_ = 0.5, appr_ = 0.1;
 static std::shared_ptr<URControl> robot_ = nullptr;
 static rclcpp::Node::SharedPtr node_ = nullptr;
 static std::shared_ptr<GraspPlanning::Response> result_ = nullptr;
@@ -60,13 +64,17 @@ int main(int argc, char **argv)
       if (rclcpp::spin_until_future_complete(node_, result_future) !=
         rclcpp::executor::FutureReturnCode::SUCCESS)
       {
+        RCLCPP_INFO(node_->get_logger(), "Wait for response Failed");
         continue;
       }
       // get response
       if (moveit_msgs::msg::MoveItErrorCodes::SUCCESS == result_future.get()->error_code.val) {
         result_ = result_future.get();
-	RCLCPP_INFO(node_->get_logger(), "Response received %d", result_->error_code.val);
-      } else continue;
+	      RCLCPP_INFO(node_->get_logger(), "Response received %d", result_->error_code.val);
+      } else{
+        RCLCPP_INFO(node_->get_logger(), "Response no receive");
+        continue;
+      };
 
       geometry_msgs::msg::PoseStamped p = result_->grasps[0].grasp_pose;
       // publish grasp pose
