@@ -4,7 +4,7 @@ GraspDetectorGPD:
     # cloud_topic: "/camera/aligned_depth_to_color/color/points"
     object_topic: "/ros2_openvino_toolkit/segmented_obejcts"
     rviz: true
-    device: 1 # 0:CPU, 1:GPU, 2:VPU
+    device: 0 # 0:CPU, 1:GPU, 2:VPU
     auto_mode: false
     plane_remove: true
     object_detect: true
