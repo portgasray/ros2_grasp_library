@@ -14,13 +14,15 @@ using GraspPlanning = moveit_msgs::srv::GraspPlanning;
 /* pick position in [x, y, z, R, P, Y]*/
 static std::vector<double> pick_ = {0.0, -0.54, 0.145, 3.14, 0.0, 1.956};
 /* place position in [x, y, z, R, P, Y]*/
-static std::vector<double> place_ = {0.557, 0.213, 0.194, 0.0, 3.14, 0.0, 1.956};
+static std::vector<double> place_ = {0.557, 0.213, 0.194, 3.14, 0.0, 1.607};//20 degree remains pi/9=0.349(add to Yaw origin:1.956)
+static int i = 0;
+/* 0.0,(between 3.14 and 0.194)
 
 /* pre-pick position in joint values*/
 static std::vector<double> joint_values_pick = {1.65, -1.553, -1.477, -1.577, 1.556, 0};
 /* place position in joint values*/
 static std::vector<double> joint_values_place = {0.385, -1.470, -1.477, -1.577, 1.556, 0};
-static double vel_ = 0.4, acc_ = 0.4, vscale_ = 0.5, appr_ = 0.1;
+static double vel_ = 0.5, acc_ = 0.4, vscale_ = 0.5, appr_ = 0.1;
 // Debug lower vel acc
 // static double vel_ = 0.3, acc_ = 0.2, vscale_ = 0.5, appr_ = 0.1;
 static std::shared_ptr<URControl> robot_ = nullptr;
@@ -101,8 +103,12 @@ int main(int argc, char **argv)
       robot_->moveToJointValues(joint_values_pick, vel_, acc_);
       robot_->pick(p, vel_, acc_, vscale_, appr_);
       // place
-      robot_->moveToJointValues(joint_values_place, vel_, acc_);
+      robot_->moveToJointValues(joint_values_pick, vel_, acc_);
+      place_[0] = 0.2, place_[1] = 0.3+(i%3)*0.1, place_[2] = 0.255+(i/3)*0.025;
+      i++;
+           
       robot_->place(place_[0], place_[1], place_[2], place_[3], place_[4], place_[5], vel_, acc_, vscale_, appr_);
+      
 #endif
   }
 
