@@ -38,7 +38,7 @@ GraspPlanner:
     # grasp_approach_angle: 0.785 # 1.047=PI/3 # 0.785=PI/4 # 0.523=PI/6 # 0.345=PI/9 0.175=PI/18 # acceptable approaching angle
     grasp_approach_angle: 0.345 # lower angle for safety
     # grasp_offset: [0.000, -0.004, 0.000] #original
-    grasp_offset: [-0.01, -0.03, 0.045]
+    grasp_offset: [-0.015, -0.005, 0.035]
 
 
     # grasp boundry in grasp_frame_id
