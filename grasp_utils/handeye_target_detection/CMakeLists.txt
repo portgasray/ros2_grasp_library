@@ -41,7 +41,7 @@ find_package(cv_bridge REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(image_transport REQUIRED)
 
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 3.4 REQUIRED)
 if((${OpenCV_VERSION} LESS 3.3))
   message(WARNING "handeye_target_detection works better with OpenCV version >= 3.3")
 endif()
