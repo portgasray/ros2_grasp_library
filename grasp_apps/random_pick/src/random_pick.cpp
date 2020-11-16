@@ -16,7 +16,7 @@ static std::vector<double> pick_ = {0.0, -0.54, 0.145, 3.14, 0.0, 1.956};
 /* place position in [x, y, z, R, P, Y]*/
 static std::vector<double> place_ = {0.557, 0.213, 0.194, 3.14, 0.0, 1.607};//20 degree remains pi/9=0.349(add to Yaw origin:1.956)
 static int i = 0;
-/* 0.0,(between 3.14 and 0.194)
+/* 0.0,(between 3.14 and 0.194) */
 
 /* pre-pick position in joint values*/
 static std::vector<double> joint_values_pick = {1.65, -1.553, -1.477, -1.577, 1.556, 0};
